@@ -9,12 +9,15 @@ export function ProdutosProvider({ children }) {
     const [carrinho, setCarrinho] = useState([]);
     const [precoTotal, setPrecoTotal] = useState(0);
 
-    useEffect( async () => {
-        const resultado = await pegarProdutos();
-        if(resultado.length > 0){
-            setCarrinho(resultado);
-            setQuantidade(resultado.length);
+    useEffect( () => {
+        async function response(){
+            const resultado = await pegarProdutos();
+            if(resultado.length > 0){
+                setCarrinho(resultado);
+                setQuantidade(resultado.length);
+            }
         }
+        response();
     },[])
 
     async function viuProduto(produto) {

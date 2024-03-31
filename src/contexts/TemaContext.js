@@ -12,11 +12,14 @@ export function TemaProvider({ children }) {
         'claro': claro
     }
 
-    useEffect( async () => {
-        const tema = await AsyncStorage.getItem("@tema");
-        if(tema){
-            setTema(tema);
+    useEffect( () => {
+        async function response(){
+            const tema = await AsyncStorage.getItem("@tema");
+            if(tema){
+                setTema(tema);
+            }
         }
+        response();
     },[])
 
     async function setTemaAtual(tema){
