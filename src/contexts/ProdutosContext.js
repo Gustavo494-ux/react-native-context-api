@@ -27,9 +27,10 @@ export function ProdutosProvider( {children} ) {
   return (
     <ProdutosContext.Provider value={{
       quantidade, 
-      carrinho,
+      carrinho,      
       ultimosVistos,
-      viuProduto
+      viuProduto,
+      setCarrinho,
     }}>
       {children}
     </ProdutosContext.Provider>

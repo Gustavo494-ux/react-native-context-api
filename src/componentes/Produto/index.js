@@ -4,7 +4,7 @@ import { useContext } from 'react';
 import { ProdutosContext } from '../../contexts/ProdutosContext';
 
 export function Produto({ item, adicionar }) {
-  // const { viuProduto } = useContext(ProdutosContext)
+  const { viuProduto } = useContext(ProdutosContext)
 
   return (
     <View style={estilos.cartao}>
@@ -15,7 +15,7 @@ export function Produto({ item, adicionar }) {
       </View>
       { adicionar &&
       <TouchableOpacity style={estilos.botaoAdicionar} onPress={() => {viuProduto(item)}}>
-        <Text style={estilos.botaoTexto}>+</Text> andre
+        <Text style={estilos.botaoTexto}>+</Text>
       </TouchableOpacity>}
     </View>
   );
