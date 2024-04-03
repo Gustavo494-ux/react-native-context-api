@@ -11,13 +11,12 @@ export async function salvarProduto(produto){
 }
 
 export async function buscarProdutos(){
-    try {
-        
+    try {        
         const resultado = await api.get('/produtos')
         console.log(resultado)
         return resultado.data
     } catch (error) {
-        console.log(err)
+        console.log(error)
         return []
     }
 }
