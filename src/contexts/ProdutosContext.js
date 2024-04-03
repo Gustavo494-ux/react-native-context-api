@@ -7,12 +7,13 @@ export function ProdutosProvider( {children} ) {
     const [quantidade, setQuantidade] = useState(0)
     const [carrinho, setCarrinho] = useState([])
     const [ultimosVistos, setUltimosVistos] = useState([])
+    const [precoTotal, setPrecoTotal] = useState(0);
 
     useEffect(  () =>{
       async function carregarProdutos(){
         const resultado = await buscarProdutos()
         setCarrinho(resultado)
-        setQuantidade(resultado.lenght)
+        setQuantidade(resultado.length)
         return
       }
       carregarProdutos();
@@ -20,20 +21,17 @@ export function ProdutosProvider( {children} ) {
     },[])
 
     async function viuProduto(produto){
-        setQuantidade(quantidade+1)
-        const resultado = await salvarProduto(produto);
+      const resultado = await salvarProduto(produto);
+      const novoItemCarinho = [...carrinho, resultado];
+      setCarrinho(novoItemCarinho);
+      
+      let novoUltimosVistos = new Set(ultimosVistos);
+      novoUltimosVistos.add(produto);
+      setUltimosVistos([...novoUltimosVistos]);
 
-        let novoCarrinho = carrinho
-        novoCarrinho.push(produto)
-        setCarrinho(novoCarrinho)
-        
-        /* O set verifica se o item(neste caso produto) a ser adicionado 
-            no array já existe no mesmo, caso exista não será adicionado 
-            novamente */
-        
-        let novoUltimosVistos = new Set(ultimosVistos)        
-        novoUltimosVistos.add(produto)
-        setUltimosVistos([...novoUltimosVistos])
+      setQuantidade(quantidade + 1);
+      let novoPrecoTotal = precoTotal + produto.preco;
+      setPrecoTotal(novoPrecoTotal);
     }
 
   return (
@@ -41,6 +39,7 @@ export function ProdutosProvider( {children} ) {
       quantidade, 
       carrinho,      
       ultimosVistos,
+      precoTotal,
       viuProduto,
       setCarrinho,
     }}>

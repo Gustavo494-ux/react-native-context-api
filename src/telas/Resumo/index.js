@@ -3,7 +3,7 @@ import { Produto } from '../../componentes/Produto';
 import { estilos } from './estilos';
 import { Feather } from 'react-native-vector-icons'
 import MaterialCommunityIcons from 'react-native-vector-icons/Feather';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { TemaContext } from "../../contexts/TemaContext";
 import { AutenticacaoContext } from '../../contexts/AutenticacaoContext';
 import { ProdutosContext } from '../../contexts/ProdutosContext';
@@ -20,10 +20,21 @@ export default function Resumo({navigation}) {
     carrinho
   } = useContext(ProdutosContext)
 
+  const [precoTotal, setPrecoTotal ] = useState([])
+
+  function calcularPrecoTotal(){
+    let valorTotal = 0
+    carrinho.map( produto => {
+      valorTotal += produto.preco 
+    })
+    console.log(valorTotal);
+    setPrecoTotal(valorTotal)
+  }
+
 
   return (
     <View style={estilo.container}>
-      <StatusBar />
+      <StatusBar />    
       <View style={estilo.tituloArea}>
         <Text style={estilo.titulo}>Olá, {usuario.nome}</Text>
         <View style={estilo.carrinhoArea}>
@@ -48,10 +59,11 @@ export default function Resumo({navigation}) {
         style={estilo.lista}
         showsVerticalScrollIndicator={false}
       />
-
-      <TouchableOpacity style={estilo.botao} onPress={() => navigation.navigate('Finalizar')} >
-        <Text style={estilo.botaoTexto}>Finalizar</Text>
-      </TouchableOpacity>
+      { quantidade > 0 && 
+        <TouchableOpacity style={estilo.botao} onPress={() => navigation.navigate('Finalizar')} >
+          <Text style={estilo.botaoTexto}>Finalizar</Text>
+        </TouchableOpacity>
+      }
     </View>
   );
 }
