@@ -1,33 +1,20 @@
-import { Text, View, StatusBar, Button, Alert, TouchableOpacity } from 'react-native';
+import { Text, View, FlatList, StatusBar, TouchableOpacity } from 'react-native';
+import { estilos } from './estilos';
+import { useContext, useState } from 'react';
+import { TemaContext } from "../../contexts/TemaContext";
 import { ProdutosContext } from '../../contexts/ProdutosContext';
 import { AutenticacaoContext } from '../../contexts/AutenticacaoContext';
-import { TemaContext } from '../../contexts/TemaContext';
-import { estilos } from './estilos';
-import { useContext } from 'react';
 
-export default function Finalizar({ navigation }) {
-  const {
-    quantidade,
-    precoTotal,
-    finalizarCompra,
-  } = useContext(ProdutosContext);
+export default function Finalizar({navigation}) {
+  const { temaEscolhido } = useContext(TemaContext);
+  const estilo = estilos(temaEscolhido);
 
-  const {
-    temas,
-  } = useContext(TemaContext);
+  const {setCarrinho,quantidade,
+    precoTotal} = useContext(ProdutosContext)
+  const {usuario} = useContext(AutenticacaoContext)
 
-  const {
-    usuario
-  } = useContext(AutenticacaoContext);
 
-  const estilo = estilos(temas);
-
-  async function finalizar() {
-    const resultado = await finalizarCompra();
-    Alert.alert(resultado);
-    navigation.navigate('Principal');
-  }
-
+  
   return (
     <View style={estilo.container}>
       <StatusBar />
@@ -42,13 +29,12 @@ export default function Finalizar({ navigation }) {
         <Text style={estilo.texto}>Quantidade: {quantidade}</Text>
         <Text style={estilo.texto}>Preço Total: R$ {precoTotal}</Text>
       </View>
-      <TouchableOpacity 
-        style={estilo.botao} 
-        onPress={() => finalizar()} 
-      >
+      <TouchableOpacity style={estilo.botao} onPress={() => {
+          setCarrinho([]);
+          navigation.navigate('Principal');
+        }}>      
         <Text style={estilo.botaoTexto}>Finalizar</Text>
       </TouchableOpacity>
     </View>
   );
 }
-
