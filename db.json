@@ -1,9 +1,10 @@
 {
-    "produtos": [
-        {
-            "imagem": "imagemTenis",
-            "texto": "Tenis bacana",
-            "preco": 100.00
-        }
-    ]
+  "produtos": [
+    {
+      "id": "6926",
+      "imagem": 3,
+      "texto": "Tenis bacana",
+      "preco": 100
+    }
+  ]
 }

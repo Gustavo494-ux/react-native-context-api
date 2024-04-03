@@ -21,19 +21,17 @@ export function ProdutosProvider( {children} ) {
 
     async function viuProduto(produto){
         setQuantidade(quantidade+1)
-
         const resultado = await salvarProduto(produto);
 
-        let novoCarrinho = resultado
+        let novoCarrinho = carrinho
         novoCarrinho.push(produto)
-
         setCarrinho(novoCarrinho)
-
+        
         /* O set verifica se o item(neste caso produto) a ser adicionado 
             no array já existe no mesmo, caso exista não será adicionado 
             novamente */
-
-        let novoUltimosVistos = new Set(ultimosVistos)
+        
+        let novoUltimosVistos = new Set(ultimosVistos)        
         novoUltimosVistos.add(produto)
         setUltimosVistos([...novoUltimosVistos])
     }

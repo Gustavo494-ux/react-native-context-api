@@ -8,6 +8,7 @@ import { TemaContext } from "../../contexts/TemaContext";
 import { AutenticacaoContext } from '../../contexts/AutenticacaoContext';
 import { ProdutosContext } from '../../contexts/ProdutosContext';
 
+
 export default function Resumo({navigation}) {
   const { temaEscolhido } = useContext(TemaContext);
   const estilo = estilos(temaEscolhido);
