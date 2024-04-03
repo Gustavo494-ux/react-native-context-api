@@ -10,16 +10,13 @@ export function ProdutosProvider( {children} ) {
 
     useEffect(  () =>{
       async function carregarProdutos(){
-        debugger
-        console.log('1')
         const resultado = await buscarProdutos()
-        console.log('2')
         setCarrinho(resultado)
         setQuantidade(resultado.lenght)
         return
       }
-       carregarProdutos();
-      return
+      carregarProdutos();
+      
     },[])
 
     async function viuProduto(produto){
